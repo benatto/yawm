@@ -18,7 +18,9 @@ int main(int argc, char **argv){
 
 	w = createWindow(c, TopLevel);
 
-	//INIT_GEOMETRY(w->geometry, 800, 600, 0, 0, 1, 0);
+	INIT_GEOMETRY(w->geometry, 800, 600, 0, 0, 1, 1);
+
+	applyWindowGeometry(w);
 
 	showWindow(w);
 

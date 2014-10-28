@@ -13,6 +13,8 @@ int addWidget(window_t *w, widget_t *wd, int show) {
 	
 	if (show)
 		gtk_widget_show(wd->widget);
+
+	return 0;
 }
 
 /*
@@ -35,6 +37,19 @@ int addWidgetCallback(widget_t *wd, void (*callback)(GtkWidget*, gpointer),
 	g_signal_connect(wd->widget, signal, G_CALLBACK(callback), data);
 
 	return 0;
+}
+
+void applyWindowGeometry(window_t *w) {
+	int width, height;
+	
+	width = w->geometry->width;
+	height = w->geometry->height;
+
+	if (width != -1 && height != -1)
+		gtk_window_resize((GtkWindow*)w->window, w->geometry->width, w->geometry->height);
+
+	gtk_window_set_modal((GtkWindow*)w->window, w->geometry->modal);
+	gtk_window_set_resizable((GtkWindow*)w->window, w->geometry->resizable);
 }
 
 /*

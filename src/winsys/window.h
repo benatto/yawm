@@ -6,22 +6,28 @@
 
 #define SIGNAL_ADD(l,s) l = g_list_append(l, s)
 
-#define INIT_GEOMETRY(wd, w, h, pos_x, pos_y, res, modal) \
+#define INIT_GEOMETRY(wd, w, h, x, y, r, m) \
 { \
 	wd->width = w; \
 	wd->height = h; \
-	wd->pos_x = pos_x; \
-	wd->pos_y = pos_y; \
-	wd->resizable = res; \
-	wd->modal = modal; \
+	wd->pos_x = x; \
+	wd->pos_y = y; \
+	wd->resizable = r; \
+	wd->modal = m; \
 }
 
-#define SET_DEF_WINDOW_SIZE(wd) gtk_window_set_default_size(wd->window, wd->geometry->width, wd->geometry->height)
+#define SET_DEF_WINDOW_SIZE(wd) gtk_window_set_default_size(wd->window,\
+                                                            wd->geometry->width,\
+                                                            wd->geometry->height)
 
 typedef enum WindowType {
 	TopLevel = GTK_WINDOW_TOPLEVEL,
 	PopUp = GTK_WINDOW_POPUP
 }WindowType;
+
+/*
+ * Geomatry properties: -1 means default value from gtk
+ */
 
 typedef struct geometry_t {
 	int width;
@@ -51,11 +57,11 @@ typedef struct window_t {
 	GList *signals;
 }window_t;
 
-window_t *createWindow(char *, WindowType);
-void showWindow(window_t *);
-int addWidgetCallback(widget_t *, void (*)(GtkWidget*, gpointer),
+extern window_t *createWindow(char *, WindowType);
+extern void showWindow(window_t *);
+extern int addWidgetCallback(widget_t *, void (*)(GtkWidget*, gpointer),
 					  char *, void *);
-int addWidget(window_t *w, widget_t *, int); 
+extern int addWidget(window_t *w, widget_t *, int); 
 
 
 
